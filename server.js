@@ -30,6 +30,16 @@ app.get("/gift", function(req, res) {
 });
 
 
+
+app.get("/", function (a, b) {
+    b.render("harid");
+});
+
+
+
+
+
+
 const server = http.createServer(app)              // create qlngan app ni path qlb qoyamz
 let PORT = 3000;
 server.listen(PORT, function() {  // server ni 3000-portga listen qlsh
@@ -40,5 +50,21 @@ server.listen(PORT, function() {  // server ni 3000-portga listen qlsh
 
 // Frontendni qurish 2xil usulda boladi:
 // 1-> Traditional usul: (ejs framework orqali backend ichida frontend qurladi) BSSR
-// 2-> single page application (react framewori orqali)
+// 2-> single page application (react frameworki orqali)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
