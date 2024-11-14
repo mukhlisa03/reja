@@ -4,6 +4,7 @@ const express = require("express");
 const app = express(); // express ning app objecti, instint sifatida
 const http = require('http');  // core module bolganlgi un require('http') qlsa yetarli
 
+
 // nodemon -> code ga kirtlgan ozgarshni avtomatk saqlab serverni ishga tushrb beradi doim -> npm run dev orqali ishga tushadi
 
 
@@ -30,10 +31,19 @@ app.get("/gift", function(req, res) {
 });
 
 
-
-app.get("/", function (a, b) {
-    b.render("harid");
+app.post("/create-item", (req, res) => {
+    console.log(req.body);
+    res.json({test: "success" });  // kelgan malumot json format qaytadi
 });
+
+
+
+app.get("/", function (req, res) {
+    res.render("harid");  // render -> views papkasidagi ma'lum bir shablon faylni chaqirladi: bu yerda (harid.ejs) chaqrdi
+}); 
+
+// req: foydalanuvchidan kelgan so'rov (request).
+// res: serverdan foydalanuvchiga qaytariladigan javob (response).
 
 
 
@@ -44,7 +54,7 @@ const server = http.createServer(app)              // create qlngan app ni path 
 let PORT = 3000;
 server.listen(PORT, function() {  // server ni 3000-portga listen qlsh
     console.log(`The server is running successfully on port: ${PORT}`);
-})
+});
 
 
 
