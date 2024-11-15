@@ -4,6 +4,21 @@ const express = require("express");
 const app = express(); // express ning app objecti, instint sifatida
 const http = require('http');  // core module bolganlgi un require('http') qlsa yetarli
 
+const fs = require("fs");   // File System -> core module
+
+let user;  // user -> object
+fs.readFile("database/user.json", "utf8", (err, data) => {  // fs orqali database folderdagi user.json fileni oqshga harakat qladi
+    if(err) {
+        console.log("ERROR:", err)
+    } else {  // agar xatolik bolmaganda
+        user = JSON.parse(data)   // fs oqigan datani json dan object ga parse qlnadi
+    }
+})
+
+
+// JSON bn Objectni farqi -> JSON da key da ham qoshtirnoq boladi yani => "name": "Mukhlisa"
+// parse -> qlganda key dagi qoshtrnoqni olb object ga aylantrb beradi
+
 
 // nodemon -> code ga kirtlgan ozgarshni avtomatk saqlab serverni ishga tushrb beradi doim -> npm run dev orqali ishga tushadi
 
@@ -34,7 +49,13 @@ app.get("/gift", function(req, res) {
 app.post("/create-item", (req, res) => {
     console.log(req.body);
     res.json({test: "success" });  // kelgan malumot json format qaytadi
+    // TODO: code with db here
 });
+
+
+app.get('/author', (req, res) => {
+    res.render("author", {user: user});   // render orqali author.ejs pagega yuboradi
+})
 
 
 
