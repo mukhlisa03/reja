@@ -9,11 +9,11 @@ const fs = require("fs");   // File System -> core module
 let user;  // user -> object
 fs.readFile("database/user.json", "utf8", (err, data) => {  // fs orqali database folderdagi user.json fileni oqshga harakat qladi
     if(err) {
-        console.log("ERROR:", err)
+        console.log("ERROR:", err);
     } else {  // agar xatolik bolmaganda
-        user = JSON.parse(data)   // fs oqigan datani json dan object ga parse qlnadi
+        user = JSON.parse(data);   // fs oqigan datani json dan object ga parse qlnadi
     }
-})
+});
 
 
 // JSON bn Objectni farqi -> JSON da key da ham qoshtirnoq boladi yani => "name": "Mukhlisa"
@@ -48,7 +48,7 @@ app.get("/gift", function(req, res) {
 
 app.post("/create-item", (req, res) => {
     console.log(req.body);
-    res.json({test: "success" });  // kelgan malumot json format qaytadi
+    res.json({test: "success"});  // kelgan malumot json format qaytadi
     // TODO: code with db here
 });
 
