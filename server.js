@@ -77,7 +77,7 @@ server.listen(PORT, function() {  // server ni 3000-portga listen qlsh
     console.log(`The server is running successfully on port: ${PORT}`);
 });
 
-
+     
 
 // Frontendni qurish 2xil usulda boladi:
 // 1-> Traditional usul: (ejs framework orqali backend ichida frontend qurladi) BSSR
