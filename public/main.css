@@ -694,4 +694,60 @@ text-transform: capitalize;
 }
 
 
+.service_link {
+    color: var(--Yellow, #FFB400);
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+
+    text-decoration: none;
+}
+
+
 /* service page end */
+
+
+
+
+/* RIGHT FRAME */
+
+.main_frame .right_frame {
+    position: relative;
+    width: 108px;
+    height: 1315px;
+    background-color: #fff;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.main_frame .right_frame-img_contrast {
+    margin-top: 50px;
+    margin-bottom: 174px;
+}
+
+.main_frame .right_frame-img_home {
+    width: 65px;
+    height: 78px;
+    margin-bottom: 43px;
+}
+
+.main_frame .right_frame-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.main_frame .right_frame-menu img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 43px;
+}
+.main_frame .right_frame-menu img:last-child {
+    margin-bottom: 0;
+}
+
+
+
+ 
