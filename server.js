@@ -71,7 +71,7 @@ app.get("/", function (req, res) {
 
 
 
-const server = http.createServer(app)              // create qlngan app ni path qlb qoyamz
+const server = http.createServer(app)              // app -> single thread -> hamma userlar requesti shu yerga kelb tushadi
 let PORT = 3000;
 server.listen(PORT, function() {  // server ni 3000-portga listen qlsh
     console.log(`The server is running successfully on port: ${PORT}`);
