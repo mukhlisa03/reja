@@ -336,22 +336,36 @@ fs dan -> read, write func ishlatildi
 
 
 // DEFINE
-function qoldiqBolish(a, b, cb) {
-    if (b === 0) {
-      cb("Mahraj nolga teng bolmasin!", null, "ishlamaydi");
-    } else {
-      const c = a % b;
-      cb(null, c, "ishladi");
-    }
-  }
+// function qoldiqBolish(a, b, cb) {
+//     if (b === 0) {
+//       cb("Mahraj nolga teng bolmasin!", null, "ishlamaydi");
+//     } else {
+//       const c = a % b;
+//       cb(null, c, "ishladi");
+//     }
+//   }
   
-  // CALL
-  qoldiqBolish(10, 0, (err, data, data2) => {
-    if (err) {
-      console.log("ERROR:", err);
-    } else {
-      console.log("data:", data);
-      console.log("data2:", data2);
-      console.log("ANY LOGIC");
-    }
-  });
+//   // CALL
+//   qoldiqBolish(10, 0, (err, data, data2) => {
+//     if (err) {
+//       console.log("ERROR:", err);
+//     } else {
+//       console.log("data:", data);
+//       console.log("data2:", data2);
+//       console.log("ANY LOGIC");
+//     }
+//   });
+
+
+// function countDigits(str) {
+//   let count = 0; // Raqamlarni sanash uchun o'zgaruvchi
+//   for (let char of str) { // Har bir belgini tekshirish uchun stringni aylanamiz
+//       if (char >= '0' && char <= '9') { // Agar belgi raqam bo'lsa
+//           count++; // Raqamlarni sanaymiz
+//       }
+//   }
+//   return count; // Umumiy raqamlar sonini qaytaramiz
+// }
+
+// // Misol
+// console.log(countDigits("ad2a54y79wet0sfgb9")); // 7
