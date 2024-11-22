@@ -117,7 +117,7 @@ fs dan -> read, write func ishlatildi
 // ];
 
 
-// // defini qism  Async function
+// // defini qism  Async function  [asinkrenis]
 // async function maslahatBering(a) {     //  async  -> function define qlnadi
 //     if (typeof a !== 'number') throw new Error("Pls, insert number!");    // error mavjud bolganda -> throw new Error  qachonki int typedagi qiymat kirtlmaganda
 //     else if (a <= 20) return list[0];   // javob kelayotganda  faqat javobni ozini return qlaaamz
@@ -155,6 +155,7 @@ fs dan -> read, write func ishlatildi
 // run();
 
 
+// synchronous function -> srazi ishga tushadi javobi srazi qabul qladgan function
 
 
 
@@ -312,15 +313,45 @@ fs dan -> read, write func ishlatildi
 // Shunday 2 parametrli function tuzing, hamda birinchi parametrdagi letterni ikkinchi parametrdagi sozdan qatnashga sonini return qilishi kerak boladi.
 // MASALAN countLetter("e", "engineer") 3ni return qiladi.
 
-function letter(harf, soz) {  // letter nomli function 2 ta parametr oladi
-    let sana = 0;             // harflarni sanash un boshlangch qiymat 0 db olnadi
+// function letter(harf, soz) {  // letter nomli function 2 ta parametr oladi
+//     let sana = 0;             // harflarni sanash un boshlangch qiymat 0 db olnadi
 
-    for (let char of soz) {   // soz dagi har bir harf ni tekshradi 
-        if (char == harf) {   // agar har biz qdryotgan harf ga teng bolsa
-            sana++;           // hisoblagchni 1 ga oshrb qoyamz
-        }
+//     for (let char of soz) {   // soz dagi har bir harf ni tekshradi 
+//         if (char == harf) {   // agar har biz qdryotgan harf ga teng bolsa
+//             sana++;           // hisoblagchni 1 ga oshrb qoyamz
+//         }
+//     }
+//     return sana;              // natija qaytariladi
+// }
+// console.log(letter("e", "engineer"));      // function chqarlb olb berlgan parametr boyicha argument beramz
+// console.log(letter("i", "universitet"));
+
+
+
+
+
+
+
+
+
+
+// DEFINE
+function qoldiqBolish(a, b, cb) {
+    if (b === 0) {
+      cb("Mahraj nolga teng bolmasin!", null, "ishlamaydi");
+    } else {
+      const c = a % b;
+      cb(null, c, "ishladi");
     }
-    return sana;              // natija qaytariladi
-}
-console.log(letter("e", "engineer"));      // function chqarlb olb berlgan parametr boyicha argument beramz
-console.log(letter("i", "universitet"));
+  }
+  
+  // CALL
+  qoldiqBolish(10, 0, (err, data, data2) => {
+    if (err) {
+      console.log("ERROR:", err);
+    } else {
+      console.log("data:", data);
+      console.log("data2:", data2);
+      console.log("ANY LOGIC");
+    }
+  });
