@@ -3,7 +3,7 @@ const mongodb = require("mongodb");  // external package
 
 
 let db;
-const connectionString = "mongodb+srv://mukhlisamakhmaraimova03:qkQ5xeHzaj9v0TCm@cluster0.mxami.mongodb.net/";
+const connectionString = "mongodb+srv://mukhlisamakhmaraimova03:qkQ5xeHzaj9v0TCm@cluster0.mxami.mongodb.net/Reja?authSource=admin&retryWrites=true&w=majority";
 
 
 // mongodb ichidagi connect metodi ichiga 3ta narsa path qlnadi
@@ -37,16 +37,16 @@ mongodb.connect(connectionString, {
 // MASALAN countDigits("ad2a54y79wet0sfgb9") 7ni return qiladi.
 
 
-function countDigits(str) {
-    let count = 0;                     // Raqamlarni sanash un boshlangich qiymat => 0
-    for (let char of str) {            // Har bir belgini string ichidan tek
-        if (char >= '0' && char <= '9') {        // Agar belgi raqam bo'lsa... (0 va 9) orasida
-            count++;                // Raqamlarni birga oshrb ketiladi
-       }
-    }
-    return count;                   // Umumiy raqamlar sonini return qlamz
-}
+// function countDigits(str) {
+//     let count = 0;                     // Raqamlarni sanash un boshlangich qiymat => 0
+//     for (let char of str) {            // Har bir belgini string ichidan tek
+//         if (char >= '0' && char <= '9') {        // Agar belgi raqam bo'lsa... (0 va 9) orasida
+//             count++;                // Raqamlarni birga oshrb ketiladi
+//        }
+//     }
+//     return count;                   // Umumiy raqamlar sonini return qlamz
+// }
 
-console.log(countDigits("ad2a54y79wet0sfgb9"));  // 7ta
-console.log(countDigits("mukhlisa0304"));  // 4ta
+// console.log(countDigits("ad2a54y79wet0sfgb9"));  // 7ta
+// console.log(countDigits("mukhlisa0304"));  // 4ta
 

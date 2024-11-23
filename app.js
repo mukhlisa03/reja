@@ -51,9 +51,23 @@ app.get("/gift", function(req, res) {
 
 
 app.post("/create-item", (req, res) => {
+    console.log('user entered /create-item');
+    // console.log(req.body);
+    // res.json({test: "success"});  // kelgan malumot json format qaytadi
+    // // TODO: code with db here
+
     console.log(req.body);
-    res.json({test: "success"});  // kelgan malumot json format qaytadi
-    // TODO: code with db here
+    // res.end("success!");  // malumot krtlganda userga yuboriladgan malumot
+    const new_reja = req.body.reja;    // bzni yangi reja mz body qsmidan kelgan reja ga teng
+    db.collection("plans").insertOne({reja: new_reja}, (err, data) => {
+        if(err) {
+            console.log(err);
+            res.end("sometihing went wrong!");
+        } else {
+            // console.log(data);
+            res.end("successfully added!");
+        }
+    });  // new_reja ni reja nomi bn database ga yoziladi
 });
 
 
@@ -63,8 +77,18 @@ app.get('/author', (req, res) => {
 
 
 
+// localhost ga kirganda malumotlarni oqidi shu yerdan: db => obj dan foydalan CRUD opert amalga oshrladi
 app.get("/", function (req, res) {
-    res.render("reja");  // render -> views papkasidagi ma'lum bir shablon faylni chaqirladi: bu yerda (harid.ejs) chaqrdi
+    console.log('user entered /');
+    db.collection("plans").find().toArray((err, data) => {  // callback func
+        if(err) {
+            console.log(err);
+            res.end("something is wrong");  // xatolik yusaga kelganda qaytadigan response
+        } else {
+            // console.log(data);
+            res.render("reja", {items: data});  // render -> views papkasidagi ma'lum bir shablon faylni chaqirladi: bu yerda (harid.ejs) chaqrdi
+        }     // items: data => reja.ejs fayli uchun path qlnadi
+    });
 }); 
 
 // req: foydalanuvchidan kelgan so'rov (request).
