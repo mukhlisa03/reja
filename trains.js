@@ -4,7 +4,7 @@
  nodejs -> single thread(bir xonali)
 bitta xona hamma userlarni requesti uchun yetarli
 Yuborilgan request faqat usha xonada bolmedi, thread pool(kichkina xonalarga) yukledi
-thread ga yordam thread pool mavjud
+thread ga yordamchi thread pool mavjud
 libuv(engine) yordam beradi
 single thread ishlab "event loop"(looping hodisasi) yuzaga keladi
 va event loop ozini tasklarini thread larga taqsmlab beradi
@@ -148,6 +148,7 @@ fs dan -> read, write func ishlatildi
 //     }
 // }
 
+
 // async function run() {
 //     let javob = await maslahatBering(65);
 //     console.log(javob);
@@ -172,6 +173,9 @@ fs dan -> read, write func ishlatildi
 //     console.log("ERROR:", err);   // error bolganda xatolikni korsatadi
 // });     
 // console.log("passed here 1");  
+
+// javob olshda avval sync function oladi kn async func oqiladi
+// workerlarda -> async ishledi; masterda esa -> sync ishledi
 
 
 
@@ -329,43 +333,151 @@ fs dan -> read, write func ishlatildi
 
 
 
+/** ASYNCHRONOUS actions: callback, aysnc && Promise */
+// CALLBACK functionlar
+// AYSNC functionlar
+// PROMISE functionlar
+
+/* Define                         Call
+   callback                      callback
+
+async/await                 then/catch & aysnc/await
+promise                     then/catch & async/await 
+ 
+*/
+
+// then/catch => bitta async mantiq bolganda ishatladi
+// aysnc/await => bir nechta async mantiqlarni ketma-ket ishlatayotganda foydalaniladi (call) qismdi
+
+// Define
+// function qoldiqliBolish(a, b) {
+//     const c = a % b;    // % qoldiqni qaytaradi
+//     console.log("c:", c);
+// }
+// Call
+// qoldiqliBolish(10,3);
 
 
 
-
-
+//  callback functions 
 
 // DEFINE
-// function qoldiqBolish(a, b, cb) {
-//     if (b === 0) {
-//       cb("Mahraj nolga teng bolmasin!", null, "ishlamaydi");
+// function qoldiqBolish(a, b, callback) {
+//     if (b === 0) { // b ni qiymati 0 ga teng bolb qolsa err yuzaga keladi
+//       callback("Mahraj nolga teng bolmasin!", null, "ishlamaydi");  // error bolganda datamiz -> null boladi (ishlamadi dgan manoda)
 //     } else {
 //       const c = a % b;
-//       cb(null, c, "ishladi");
+//       callback(null, c, "ishladi");  // null-error bolmadi data boldi dgan manoda datani qiymati beriladi
 //     }
 //   }
   
-//   // CALL
-//   qoldiqBolish(10, 0, (err, data, data2) => {
+//   // CALL   -> shu yerdan tahlilni boshlash kerak!
+//   console.log("A");
+//   qoldiqBolish(10, 3, (err, data, data2) => {   // qoldiqliBolish func ishga tushadi (10 va 3 qiymat beriladi): err yoki data chqishi ushbu ikkita qiymatga bogliq
 //     if (err) {
 //       console.log("ERROR:", err);
+//       // console.log(data);
 //     } else {
+//       console.log("B");
 //       console.log("data:", data);
 //       console.log("data2:", data2);
-//       console.log("ANY LOGIC");
+//       // console.log("ANY LOGIC"); 
 //     }
 //   });
+//   console.log("C");
+
+
+  // callback -> ketma -ket darsda ishga tushadi yani (A, B, C) qisman async func hisb.di -> 5sekndan kn javob beradi
+
+  // umumiy conceptsiyasi bor callback da avval error keladi kn data keladi!!
+
+
+
+
+
+// HomeTask
+
+// B-TASK: 
+
+// Shunday function tuzing, u 1ta string parametrga ega bolsin, hamda osha stringda qatnashgan raqamlarni sonini bizga return qilsin.
+// MASALAN countDigits("ad2a54y79wet0sfgb9") 7ni return qiladi.
 
 
 // function countDigits(str) {
-//   let count = 0; // Raqamlarni sanash uchun o'zgaruvchi
-//   for (let char of str) { // Har bir belgini tekshirish uchun stringni aylanamiz
-//       if (char >= '0' && char <= '9') { // Agar belgi raqam bo'lsa
-//           count++; // Raqamlarni sanaymiz
-//       }
-//   }
-//   return count; // Umumiy raqamlar sonini qaytaramiz
+//     let count = 0;                     // Raqamlarni sanash un boshlangich qiymat => 0
+//     for (let char of str) {            // Har bir belgini string ichidan tek
+//         if (char >= '0' && char <= '9') {        // Agar belgi raqam bo'lsa... (0 va 9) orasida
+//             count++;                // Raqamlarni birga oshrb ketiladi
+//        }
+//     }
+//     return count;                   // Umumiy raqamlar sonini return qlamz
 // }
 
-// // Misol
-// console.log(countDigits("ad2a54y79wet0sfgb9")); // 7
+// console.log(countDigits("ad2a54y79wet0sfgb9"));  // 7ta
+// console.log(countDigits("mukhlisa0304"));  // 4ta
+
+
+// MITASK-C 
+
+// Shunday class tuzing tuzing nomi Shop, va uni constructoriga 3 hil mahsulot 
+// pass bolsin, hamda classning 3ta methodi bolsin, biri qoldiq, biri sotish va biri qabul. 
+// Har bir method ishga tushgan vaqt ham log qilinsin
+
+/*MASALAN: const shop = new Shop(4, 5, 2); shop.qoldiq() return 
+hozir 20:40da 4ta non, 5ta lagmon va 2ta cola mavjud! 
+shop.sotish('non', 3) & shop.qabul('cola', 4) & shop.qoldiq() 
+return hozir 20:50da 1ta non, 5ta lagmon va 6ta cola mavjud!
+*/
+
+const moment = require("moment");
+const time = moment().format("hh:mm")
+// console.log(time);
+
+class Shop {
+  // constructor
+  constructor(non, lagmon, cola) {
+    this.non = non;
+    this.lagmon = lagmon;
+    this.cola = cola;
+  }
+  // Method
+  qoldiq(){
+    console.log(`Hozir ${time} da ${this.non} ta non, ${this.lagmon} ta lagmon, ${this.cola} ta cola mavjud`);
+  }
+
+  qabul(product, number){
+    if(product === "cola"){
+      this.cola += number;
+    }else if(product === "lagmon"){
+      this.lagmon += number;
+    } else if(product === "non"){
+      this.non += number;
+    }
+  }
+
+  sotish(product, number){
+    if(product === "cola"){
+      this.cola -= number;
+    }else if(product === "lagmon"){
+      this.lagmon -= number;
+    } else if(product === "non"){
+      this.non -= number;
+    }
+  }
+
+}
+
+const shop = new Shop(4, 5, 2); 
+shop.qoldiq();
+shop.sotish('non', 3);
+shop.qabul('cola', 4);
+
+// shop.sotish('lagmon', 3);
+// shop.sotish('non', 4);
+// shop.sotish("cola", 1);
+
+// shop.qabul("non", 5);
+// shop.qabul("lagmon", 2);
+// shop.qabul("cola", 7);
+
+shop.qoldiq();
