@@ -467,17 +467,46 @@ class Shop {
 
 }
 
-const shop = new Shop(4, 5, 2); 
-shop.qoldiq();
-shop.sotish('non', 3);
-shop.qabul('cola', 4);
+// const shop = new Shop(4, 5, 2); 
+// shop.qoldiq();
+// shop.sotish('non', 3);
+// shop.qabul('cola', 4);
 
-// shop.sotish('lagmon', 3);
-// shop.sotish('non', 4);
-// shop.sotish("cola", 1);
+// // shop.sotish('lagmon', 3);
+// // shop.sotish('non', 4);
+// // shop.sotish("cola", 1);
 
-// shop.qabul("non", 5);
-// shop.qabul("lagmon", 2);
-// shop.qabul("cola", 7);
+// // shop.qabul("non", 5);
+// // shop.qabul("lagmon", 2);
+// // shop.qabul("cola", 7);
 
-shop.qoldiq();
+// shop.qoldiq();
+
+
+
+
+/* D-TASK:
+Shunday function tuzing, u 2ta string parametrga ega bolsn hamda agar
+har ikkala string bir xil harflardan iborat bolsa true, aks holda 
+false qaytarsin. MASALAn checkContent("mitgroup", "gmtiprou")
+return qiladi true
+*/
+
+
+function checkContent(string1, string2) {
+  if (string1.length !== string2.length){
+    return false;
+  }else if (string1.char != string2.char){
+    return false;
+  }else {
+    return true;
+  }
+    
+}
+
+console.log(checkContent("mitgroup", "gmtiprou" ));  // true
+console.log(checkContent("mukhlisa", "lisakh"));   // false
+
+
+
+
