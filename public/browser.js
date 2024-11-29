@@ -1,7 +1,13 @@
+// const { response } = require("../app");
+
+// const { response } = require("../app");
+
+// const { response } = require("../app");
+
 console.log("FrontEnd JS ishga tushdi!");
 
-// Browser.js faqat frontend ga tegishli! frontend ni console qsmida ishga tushadi. backend qsmda ishlamedi
-// create-item qlnsa succesfully qoshsh kk hech qanqa refreshlarsz
+// Browser.js faqat frontend ga tegishli! frontend ni console qsmidagina ishga tushadi. backend qsmda ishlamedi
+// create-item qlnsa succesfully qoshsh kk hech qanqa refreshlarsz~~
 
 function itemTemplate(item) {   
     return `<li 
@@ -22,11 +28,11 @@ function itemTemplate(item) {
 let createField = document.getElementById("create-field");  // ejs dagi id si create-field orqali qiymat hosil qlnadi, createField variable tenglashtrb olnadi
 
 document
-    .getElementById("create-form")     // ejs dagi idsi create-from ga teng bolgan create from olnadi
+    .getElementById("create-form")     // ejs dagi idsi create-form ga teng bolgan create from olnadi
     .addEventListener("submit", function (e) {
         e.preventDefault();  // boshqa page ga by default otb ketmasligi un
 
-        axios.post("/create-item", {reja: createField.value})    // axios post metodi(create-item=> url ga yuboradi: form submit bolgan payti create-field yani input ga krtlgan narsani valuesini reja ga tenglashtrb axios orqali post qlnadi
+        axios.post("/create-item", {reja: createField.value})    // axios post metodi(create-item=> url ga yuboradi: create-field yani input ga krtlgan narsani valuesini reja ga tenglashtrb axios orqali post qlnadi
             // server dan kelgan response then va catch orqali ifoda etladi
             .then((response) => {
                 document
@@ -86,10 +92,40 @@ document.addEventListener("click", function (e) {  // func parametri -> parametr
 
 
     // edit oper
-    if(e.target.classList.contains("edit-me")) {  // edit buttoni uchun
-        alert("siz edit tugmasini bosdingiz!");
+    if (e.target.classList.contains("edit-me")) {  // edit buttoni uchun
+        // alert("siz edit tugmasini bosdingiz!");
+        let userInput = prompt(
+            "O'zgartirish kiriting",
+            e.target.parentElement.parentElement.querySelector(".item-text").innerHTML
+        );                       // browser command -> edit un
+        if(userInput) {  // malumot bor bolsa
+            // console.log(userInput); //frontend qsmdagi browserda korndi
+            axios
+              .post("/edit-item", {    // backend API post qlsh uchun, edit qlmoqc -> id
+                id: e.target.getAttribute("data-id"), 
+                new_input: userInput,
+            })
+            .then((response) => {
+                console.log(response.data);
+                e.target.parentElement.parentElement.querySelector(
+                    ".item-text"
+                ).innerHTML = userInput;  // edit qlngach eski reja yangi rejaga ozgartrldi
+            })
+            .catch((err) => {
+                console.log("Iltimos qaytadan harakat qiling!");
+            }); 
+        }
     }
-})
+});
+
+
+document.getElementById("clean-all").addEventListener("click", function () {
+    axios.post("/delete-all", { delete_all: true}).then((response) => {
+        alert(response.data.state);
+        document.location.reload();
+    });
+}); 
+    
 
 // e ni targetini ichida classList hamda contains -> buyrugi bor
 // contains => delete-me => class nomi ichida mavjudmi dgan manoni beradi

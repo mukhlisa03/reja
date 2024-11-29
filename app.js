@@ -54,6 +54,7 @@ app.get("/gift", function(req, res) {
 
 app.post("/create-item", (req, res) => {
     console.log('user entered /create-item');
+    // console.log("STEP2: FRONTEND DAN => BACKEND GA KIRISH");
     // console.log(req.body);
     // res.json({test: "success"});  // kelgan malumot json format qaytadi
     // // TODO: code with db here
@@ -62,6 +63,7 @@ app.post("/create-item", (req, res) => {
     console.log(req.body);
     // res.end("success!");  // malumot krtlganda userga yuboriladgan malumot
     const new_reja = req.body.reja;    // bzni yangi reja mz rreq.body qsmidan kelgan reja ga teng
+    // console.log("STEP3: BACKEND DAN => DATABASE GA BORISH");
     db.collection("plans").insertOne({reja: new_reja}, (err, data) => {  // insertOne -> 2ta parametr ga ega: 1ga=> reja nomi bn req.bodyni ichidan kelgan reja yozladi, 2-> callback
         // if(err) {  // errror mavjud bolsa
         //     console.log(err);
@@ -70,10 +72,11 @@ app.post("/create-item", (req, res) => {
         //     // console.log(data);
         //     res.end("successfully added!");   // userga boradigan xabar
         // }  // traditional postga moljalab yozlgan!
-
+        // console.log("STEP4: DATABASE DAN => BACKEND GA QAYTISH");
         // modern post qlsh (browser.js uchun)
         console.log(data.ops);  // data obj larni korsa boladi
         res.json(data.ops[0]);   // data obj ichida ops dgan obj bor uni ichidagi 1chi indexli array yuboriladi
+        // console.log("STEP5: BACKEND DAN => FRONTEND GA JAVOB");
     });  // new_reja ni reja nomi bn database ga yoziladi, kn callback chaqrladi
 });
 
@@ -95,7 +98,34 @@ app.post("/delete-item", (req, res) => {  // callback
 });
 
 
-app.get('/author', (req, res) => {
+// edit API uchun
+app.post("/edit-item", (req, res) => {
+    const data = req.body;
+    console.log(data);
+    db.collection("plans").findOneAndUpdate(
+        { _id: new mongodb.ObjectId(data.id) }, 
+        {$set: {reja: data.new_input} }, 
+        function(err, data) {
+            res.json({state: "success"});
+        }
+    );
+    // res.end("done");
+});
+
+
+app.post("/delete-all", (req, res) => {
+    if (req.body.delete_all) {
+        db.collection("plans").deleteMany(function() {
+            res.json({ state: "hamma rejalar ochirildi!"});
+        });
+    }
+})
+
+
+
+
+
+app.get("/author", (req, res) => {
     res.render("author", {user: user});   // render orqali author.ejs pagega yuboradi
 })
 
@@ -150,7 +180,8 @@ app.get("/", function (req, res) {
 // 1-> Traditional usul: (ejs framework orqali backend ichida frontend qurladi) BSSR
 // 2-> single page application (react frameworki orqali)
 
-
+// <!-- ejs ga yuklangaan qiymatlarni qob oladi -->
+        // <!-- <%= items[0].reja %> -->
 
 
 
