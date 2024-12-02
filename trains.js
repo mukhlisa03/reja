@@ -1,4 +1,140 @@
-// console.log("train task ishga tushdi!");   // nodemon orqali ishga tushryapti (package json da berilishi shart!)
+console.log("train task ishga tushdi!");   // nodemon orqali ishga tushryapti (package json da berilishi shart!)
+
+// E-TASK:  
+
+// Shunday function tuzing, u bitta string argumentni qabul qilib osha stringni teskari qilib return qilsin.
+// MASALAN: getReverse("hello") return qilsin "olleh"
+
+function getReverse(string) {
+  return string.split('').reverse().join('');
+}
+
+console.log(getReverse("hello"));
+console.log(getReverse("mukhlisa"));
+
+
+
+
+
+
+
+
+
+/* D-TASK:
+Shunday function tuzing, u 2ta string parametrga ega bolsn hamda agar
+har ikkala string bir xil harflardan iborat bolsa true, aks holda 
+false qaytarsin. MASALAn checkContent("mitgroup", "gmtiprou")
+return qiladi true
+
+
+
+function checkContent(string1, string2) {
+  if (string1.length !== string2.length){
+    return false;
+  }else if (string1.char != string2.char){
+    return false;
+  }else {
+    return true;
+  }
+    
+}
+
+console.log(checkContent("mitgroup", "gmtiprou" ));  // true
+console.log(checkContent("mukhlisa", "lisakh"));   // false
+*/
+
+
+
+/* MITASK-C 
+
+// Shunday class tuzing tuzing nomi Shop, va uni constructoriga 3 hil mahsulot 
+// pass bolsin, hamda classning 3ta methodi bolsin, biri qoldiq, biri sotish va biri qabul. 
+// Har bir method ishga tushgan vaqt ham log qilinsin
+
+/*MASALAN: const shop = new Shop(4, 5, 2); shop.qoldiq() return 
+hozir 20:40da 4ta non, 5ta lagmon va 2ta cola mavjud! 
+shop.sotish('non', 3) & shop.qabul('cola', 4) & shop.qoldiq() 
+return hozir 20:50da 1ta non, 5ta lagmon va 6ta cola mavjud!
+
+
+const moment = require("moment");
+const time = moment().format("hh:mm")
+// console.log(time);
+
+class Shop {
+  // constructor
+  constructor(non, lagmon, cola) {
+    this.non = non;
+    this.lagmon = lagmon;
+    this.cola = cola;
+  }
+  // Method
+  qoldiq(){
+    console.log(`Hozir ${time} da ${this.non} ta non, ${this.lagmon} ta lagmon, ${this.cola} ta cola mavjud`);
+  }
+
+  qabul(product, number){
+    if(product === "cola"){
+      this.cola += number;
+    }else if(product === "lagmon"){
+      this.lagmon += number;
+    } else if(product === "non"){
+      this.non += number;
+    }
+  }
+
+  sotish(product, number){
+    if(product === "cola"){
+      this.cola -= number;
+    }else if(product === "lagmon"){
+      this.lagmon -= number;
+    } else if(product === "non"){
+      this.non -= number;
+    }
+  }
+
+}
+
+// const shop = new Shop(4, 5, 2); 
+// shop.qoldiq();
+// shop.sotish('non', 3);
+// shop.qabul('cola', 4);
+
+// // shop.sotish('lagmon', 3);
+// // shop.sotish('non', 4);
+// // shop.sotish("cola", 1);
+
+// // shop.qabul("non", 5);
+// // shop.qabul("lagmon", 2);
+// // shop.qabul("cola", 7);
+
+ shop.qoldiq();
+*/
+
+
+
+/* HomeTask =>  B-TASK: 
+
+// Shunday function tuzing, u 1ta string parametrga ega bolsin, hamda osha stringda qatnashgan raqamlarni sonini bizga return qilsin.
+// MASALAN countDigits("ad2a54y79wet0sfgb9") 7ni return qiladi.
+
+
+// function countDigits(str) {
+//     let count = 0;                     // Raqamlarni sanash un boshlangich qiymat => 0
+//     for (let char of str) {            // Har bir belgini string ichidan tek
+//         if (char >= '0' && char <= '9') {        // Agar belgi raqam bo'lsa... (0 va 9) orasida
+//             count++;                // Raqamlarni birga oshrb ketiladi
+//        }
+//     }
+//     return count;                   // Umumiy raqamlar sonini return qlamz
+// }
+
+// console.log(countDigits("ad2a54y79wet0sfgb9"));  // 7ta
+// console.log(countDigits("mukhlisa0304"));  // 4ta
+*/
+
+
+
 
 /* 
  nodejs -> single thread(bir xonali)
@@ -105,7 +241,7 @@ fs dan -> read, write func ishlatildi
 */ 
 
 
-// c
+
 //         return onsole.log("Jack Ma maslahatlari");
 // const list = [
 //     "yaxshi talaba boling",   // 0-20 yoshda
@@ -301,14 +437,7 @@ fs dan -> read, write func ishlatildi
 
 
 // commit qlsh -> github ga
-/*
-1-> git status
-2-> git add .
-3-> git status
-4-> git commit -m "feat: train callback hamda asyn functions"
-5-> git status
-6-> git log --oneline  // commit bolgan malumotni korsh uchun
-*/
+
 
 
 // Hometask
@@ -395,117 +524,7 @@ promise                     then/catch & async/await
 
 
 
-// HomeTask
 
-// B-TASK: 
-
-// Shunday function tuzing, u 1ta string parametrga ega bolsin, hamda osha stringda qatnashgan raqamlarni sonini bizga return qilsin.
-// MASALAN countDigits("ad2a54y79wet0sfgb9") 7ni return qiladi.
-
-
-// function countDigits(str) {
-//     let count = 0;                     // Raqamlarni sanash un boshlangich qiymat => 0
-//     for (let char of str) {            // Har bir belgini string ichidan tek
-//         if (char >= '0' && char <= '9') {        // Agar belgi raqam bo'lsa... (0 va 9) orasida
-//             count++;                // Raqamlarni birga oshrb ketiladi
-//        }
-//     }
-//     return count;                   // Umumiy raqamlar sonini return qlamz
-// }
-
-// console.log(countDigits("ad2a54y79wet0sfgb9"));  // 7ta
-// console.log(countDigits("mukhlisa0304"));  // 4ta
-
-
-// MITASK-C 
-
-// Shunday class tuzing tuzing nomi Shop, va uni constructoriga 3 hil mahsulot 
-// pass bolsin, hamda classning 3ta methodi bolsin, biri qoldiq, biri sotish va biri qabul. 
-// Har bir method ishga tushgan vaqt ham log qilinsin
-
-/*MASALAN: const shop = new Shop(4, 5, 2); shop.qoldiq() return 
-hozir 20:40da 4ta non, 5ta lagmon va 2ta cola mavjud! 
-shop.sotish('non', 3) & shop.qabul('cola', 4) & shop.qoldiq() 
-return hozir 20:50da 1ta non, 5ta lagmon va 6ta cola mavjud!
-*/
-
-const moment = require("moment");
-const time = moment().format("hh:mm")
-// console.log(time);
-
-class Shop {
-  // constructor
-  constructor(non, lagmon, cola) {
-    this.non = non;
-    this.lagmon = lagmon;
-    this.cola = cola;
-  }
-  // Method
-  qoldiq(){
-    console.log(`Hozir ${time} da ${this.non} ta non, ${this.lagmon} ta lagmon, ${this.cola} ta cola mavjud`);
-  }
-
-  qabul(product, number){
-    if(product === "cola"){
-      this.cola += number;
-    }else if(product === "lagmon"){
-      this.lagmon += number;
-    } else if(product === "non"){
-      this.non += number;
-    }
-  }
-
-  sotish(product, number){
-    if(product === "cola"){
-      this.cola -= number;
-    }else if(product === "lagmon"){
-      this.lagmon -= number;
-    } else if(product === "non"){
-      this.non -= number;
-    }
-  }
-
-}
-
-// const shop = new Shop(4, 5, 2); 
-// shop.qoldiq();
-// shop.sotish('non', 3);
-// shop.qabul('cola', 4);
-
-// // shop.sotish('lagmon', 3);
-// // shop.sotish('non', 4);
-// // shop.sotish("cola", 1);
-
-// // shop.qabul("non", 5);
-// // shop.qabul("lagmon", 2);
-// // shop.qabul("cola", 7);
-
-// shop.qoldiq();
-
-
-
-
-/* D-TASK:
-Shunday function tuzing, u 2ta string parametrga ega bolsn hamda agar
-har ikkala string bir xil harflardan iborat bolsa true, aks holda 
-false qaytarsin. MASALAn checkContent("mitgroup", "gmtiprou")
-return qiladi true
-*/
-
-
-function checkContent(string1, string2) {
-  if (string1.length !== string2.length){
-    return false;
-  }else if (string1.char != string2.char){
-    return false;
-  }else {
-    return true;
-  }
-    
-}
-
-console.log(checkContent("mitgroup", "gmtiprou" ));  // true
-console.log(checkContent("mukhlisa", "lisakh"));   // false
 
 
 

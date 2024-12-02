@@ -1,14 +1,15 @@
+// express will start if after mongodb connection is successful!
+
 console.log("Web Serverni boshlash!");
-// express install qlnadi(terminalda) => external package
 const express = require("express");
-const app = express(); // express ning app objecti, instint sifatida
+const app = express(); 
+// through the app -> we can build a web server
 
 
-// MongoDB chaqrsh
-const client = require("./server") // client require qlb olndi
-const db = client.db();  // client= db objecti
-// const db -> variable name
-const mongodb = require("mongodb");  // 
+// Call => MongoDB
+const client = require("./server") // client is required
+const db = client.db();  // client's db object -> performs CRUD operation
+const mongodb = require("mongodb");  
 
 /*const fs = require("fs");   // File System -> core module
 let user;  // user -> object
@@ -22,28 +23,26 @@ fs.readFile("database/user.json", "utf8", (err, data) => {  // fs orqali databas
 */
 
 
-// JSON bn Objectni farqi -> JSON da key da ham qoshtirnoq boladi yani => "name": "Mukhlisa"
-// parse -> qlganda key dagi qoshtrnoqni olb object ga aylantrb beradi
 
 
-// nodemon -> code ga kirtlgan ozgarshni avtomatk saqlab serverni ishga tushrb beradi doim -> npm run dev orqali ishga tushadi
-
-
-// 1 -> Kirish code: express ga kirb kelayogan malumotga mos code yozladi
-app.use(express.static("public"));  // har qanday browserdan krish uchun public folder ochiq: 
-app.use(express.json());   // json formatida kelgan datani object holatiga ogrb beradi:middleware db REST API ni handle qladi
-app.use(express.urlencoded({extended: true}));  // form dan biron bir narsa POST bolsa, express serverimz qabul qlb oladi  (aks holda ignore qlnadi): middleware db: traditional API
+// 1 => Kirish code(Access code):
+app.use(express.static("public"));  // middleware design pattern
+app.use(express.json());   // middleware design pattern REST API
+app.use(express.urlencoded({extended: true}));  // middleware design pattern: traditional API
 
 // 2-> Session code
 
-// 3->Views code.   BSSR(backend server side rendering)-> traditional usul(backendda view yasash). 
-// install ejs -> view yasash uchun folder -> ejs
-app.set("views", "views"); // folderni korsatmz(view) nomli
-app.set("view engine", "ejs");  // view engine -> ejs orqali (frontend yasaladi)
+// 3->Views code.  
+// There are 2 ways to build the frontend: 1-> BSSR (build the frontend in the backend) -> through ejs framework, 2-> Single page Appication
+app.set("views", "views"); // folderni korsatmz(view) nomli yani views lar views folderini ichida
+app.set("view engine", "ejs");  // view engine -> ejs orqali (frontend yasaladi), yani backendda frontenddni quradgan enginimz
 
 
 // 4-> Routing code
-app.get("/hello", function(req, res) {   // browserda /hello db yozlsa chqshi kk bolgan text |
+// API 3 types -> REST API, TRADITIONAL API, GRAPHQL API
+// API HAS HEADER AND BODY, that is, header and body     => dafatardan qarash
+// API 2 types METHOD: get and post
+app.get("/hello", function(req, res) {   
     res.end(`<h1 style="background: violet">HELLO WORLD by Mukhlisa</h1>`);
 });
 
@@ -54,41 +53,37 @@ app.get("/gift", function(req, res) {
 
 app.post("/create-item", (req, res) => {
     console.log('user entered /create-item');
-    // console.log("STEP2: FRONTEND DAN => BACKEND GA KIRISH");
-    // console.log(req.body);
-    // res.json({test: "success"});  // kelgan malumot json format qaytadi
+    console.log("STEP2: FRONTEND DAN => BACKEND GA KIRISH");
+    console.log(req.body);
+    // res.json({test: "success"});  // incoming data returns json format but returns undefined when preventdefault is used
     // // TODO: code with db here
     
 
-    console.log(req.body);
-    // res.end("success!");  // malumot krtlganda userga yuboriladgan malumot
-    const new_reja = req.body.reja;    // bzni yangi reja mz rreq.body qsmidan kelgan reja ga teng
-    // console.log("STEP3: BACKEND DAN => DATABASE GA BORISH");
-    db.collection("plans").insertOne({reja: new_reja}, (err, data) => {  // insertOne -> 2ta parametr ga ega: 1ga=> reja nomi bn req.bodyni ichidan kelgan reja yozladi, 2-> callback
-        // if(err) {  // errror mavjud bolsa
+    const new_reja = req.body.reja;    // new plan is equal to the plan from req.body
+    console.log("STEP3: BACKEND DAN => DATABASE GA malumotni CRUD (create) qlnadi");
+    db.collection("plans").insertOne({reja: new_reja}, (err, data) => {  // insertOne -> 2ta argument ga ega: 1ga=> reja nomi bn req.bodyni ichidan kelgan reja yozladi, 2-> callback
+        // if(err) {  
         //     console.log(err);
-        //     res.end("sometihing went wrong!");  // user ga yuboriladigan xabar
-        // } else {  // error mavjud bolmasa
+        //     res.end("sometihing went wrong!");  
+        // } else {  
         //     // console.log(data);
-        //     res.end("successfully added!");   // userga boradigan xabar
+        //     res.end("successfully added!");  
         // }  // traditional postga moljalab yozlgan!
-        // console.log("STEP4: DATABASE DAN => BACKEND GA QAYTISH");
-        // modern post qlsh (browser.js uchun)
-        console.log(data.ops);  // data obj larni korsa boladi
-        res.json(data.ops[0]);   // data obj ichida ops dgan obj bor uni ichidagi 1chi indexli array yuboriladi
-        // console.log("STEP5: BACKEND DAN => FRONTEND GA JAVOB");
-    });  // new_reja ni reja nomi bn database ga yoziladi, kn callback chaqrladi
+        console.log("STEP4: DATABASE DAN => BACKEND GA QAYTISH");
+        console.log(data.ops);  
+        console.log("STEP5: BACKEND DAN => FRONTEND GA malumotni JSON formatda jonatish!");
+        res.json(data.ops[0]);   
+    });  
 });
 
 // Form Post orqali request qismiga "item" nomi bn value yuborayotgani nomi "reja" ga ozgartriladi
 // reja ni form ga yozb enter bosganda create-item url ga post qladi
 
 
+
 app.post("/delete-item", (req, res) => {  // callback
     const id = req.body.id;   // ochrmoqchi bolgan idni req body qsmdagi id dan olnadi; bzga kelayotgan id stringdan iborat uni mongodb ni mongo id siga otkazsh un mongodb ni require qlb olndi
-    // console.log(id);
-    // res.end("done");
-    // mongodb => id ni qiymatigina emas, type ni ham talab qladi => mongodb.ObjectId
+    // mongodb => requires not only the value of the id, but also the type => mongodb.ObjectId
     db.collection("plans").deleteOne(
         {_id: new mongodb.ObjectId(id)}, 
         function(err, data) {
@@ -99,93 +94,68 @@ app.post("/delete-item", (req, res) => {  // callback
 
 
 // edit API uchun
-app.post("/edit-item", (req, res) => {
+app.post("/edit-item", (req, res) => {   
     const data = req.body;
-    console.log(data);
+    console.log(data);  // bz jonatdgan data keladi
     db.collection("plans").findOneAndUpdate(
-        { _id: new mongodb.ObjectId(data.id) }, 
-        {$set: {reja: data.new_input} }, 
+        { _id: new mongodb.ObjectId(data.id) }, // ObjectId => bz jonatadgan datani mongodb ozi tushunadgan tilga ozgartrb oladi
+        {$set: {reja: data.new_input} }, // set => faqat yangilangan malumotnigina saqlab qoladi: (faqat ozgartrmochi bolgan data gina ozgaradi). set qoylmasa kirtlgan malumot qoladda qolganlari ocb ketadi ekan
         function(err, data) {
             res.json({state: "success"});
         }
     );
-    // res.end("done");
 });
 
 
 app.post("/delete-all", (req, res) => {
     if (req.body.delete_all) {
         db.collection("plans").deleteMany(function() {
-            res.json({ state: "hamma rejalar ochirildi!"});
+            res.json({ state: "All plans has been deleted!"});
         });
     }
-})
+})  
 
 
 
 
 
 app.get("/author", (req, res) => {
-    res.render("author", {user: user});   // render orqali author.ejs pagega yuboradi
+    res.render("author", {user: user});   
 })
 
 
-// harakat FRONTEND dan boshlanyapti: 1-STEP: localhostga kirsh joyi
-// localhost ga kirganda malumotlarni oqidi shu yerdan: db => obj dan foydalan CRUD opert amalga oshrladi
+// action is starting from FRONTEND: STEP 1: enter the localhost(3000-port)
 app.get("/", function (req, res) {
-    console.log('user entered /');   // glavniy page ga kirganda console ga ushbu text chqadi
+    console.log('user entered /');   // When entering the main page, this text is output to the console
     console.log("STEP2: FRONTEND DAN => BACKEND GA KIRISH");
 
     console.log("STEP3: BACKEND DAN => DATABASE GA BORISH");
-    db.collection("plans")  // plans nomli collection ichida kiradi
-     .find()  // plans ichidagi hamma malumot oqiladi
-     .toArray((err, data) => {   // oqlgan hamma malumot arrayga otkaziladi
-        if(err) {   // toArray 2 ta qiymat qaytaradi (err, data)
-            console.log(err); // databasedan togri malumot ololmaganda error yuzaga keladi
-            res.end("something is wrong");  // xatolik yuzaga kelganda qaytadigan response
-        } else { // databasedan togri malumot olnganda else qsmi ishledi
+    db.collection("plans")  
+     .find() 
+     .toArray((err, data) => {   
+        if(err) {   
+            console.log(err); // an error occurs when the correct information is not received from the database
+            res.end("something is wrong");  
+        } else { // the else part worked when the correct information was received from the database
             console.log("STEP4: DATABASE DAN => BACKEND GA QAYTISH");
-            console.log(data); // databasedan olngan malumotni korsh mn
+            console.log(data); // check the information received from the database
             
             console.log("STEP5: BACKEND DAN => FRONTEND GA JAVOB");
-            // res.send("DONE");
-            res.render("reja", {items: data});  // render -> views papkasidagi ma'lum bir shablon faylni chaqirladi: bu yerda (reja.ejs) chaqrdi:  items:data => object yasab path qlnadi
-        }     // items: data => reja.ejs fayli uchun path qlnadi
+            res.render("reja", {items: data});  // render -> views papkasidagi (reja.ejs) chaqrdi:  items:data => object yasab path qlnadi
+        }  
     });
 }); 
 
-// database ga id ni avtamatik tarzda qoshb beradi bu kelajakda usha rejaga ozgartrsh kirtsh kk bolganda yordam beradi
-// <% %> -> ejs ga yuklangan malumotlarni ejs ichida korsh un foydladi
-// <%= &>  -> qiymat qaytarsh kk bolgana % dan kn = qoyladi
 
-// req: foydalanuvchidan kelgan so'rov (request).
-// res: serverdan foydalanuvchiga qaytariladigan javob (response).
 
+
+// req: request from the user.
+// res: response from the server to the user
 
 
 
 
-// server.js ga kochrladi bu yerda ishlatlmaydi
-// const server = http.createServer(app)              // app -> single thread -> hamma userlar requesti shu yerga kelb tushadi
-// let PORT = 3000;
-// server.listen(PORT, function() {  // server ni 3000-portga listen qlsh
-//     console.log(
-//         `The server is running successfully on port: ${PORT}, http://localhost:${PORT}`
-//     );
-// });
-
-     
-
-// Frontendni qurish 2xil usulda boladi:
-// 1-> Traditional usul: (ejs framework orqali backend ichida frontend qurladi) BSSR
-// 2-> single page application (react frameworki orqali)
-
-// <!-- ejs ga yuklangaan qiymatlarni qob oladi -->
-        // <!-- <%= items[0].reja %> -->
-
-
-
-module.exports = app;  // app objectini export qln olnadi
+module.exports = app;  // export the app object
 
 
 
