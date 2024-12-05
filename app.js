@@ -1,6 +1,6 @@
 // express will start if after mongodb connection is successful!
 
-console.log("Web Serverni boshlash!");
+console.log("Starting Web Server!");
 const express = require("express");
 const app = express(); 
 // through the app -> we can build a web server
@@ -28,7 +28,7 @@ fs.readFile("database/user.json", "utf8", (err, data) => {  // fs orqali databas
 // 1 => Kirish code(Access code):
 app.use(express.static("public"));  // middleware design pattern
 app.use(express.json());   // middleware design pattern REST API
-app.use(express.urlencoded({extended: true}));  // middleware design pattern: traditional API
+app.use(express.urlencoded({extended: true}));  // middleware design pattern: traditional API: with html from backend to frontend
 
 // 2-> Session code
 
@@ -47,7 +47,7 @@ app.get("/hello", function(req, res) {
 });
 
 app.get("/gift", function(req, res) {
-    res.end(`<h1>Siz sovg'alar bo'limidasiz!</h1>`);
+    res.end(`<h1>You are on gift's page!</h1>`);
 });
 
 
@@ -91,6 +91,7 @@ app.post("/delete-item", (req, res) => {  // callback
         }
     );   
 });
+
 
 
 // edit API uchun
@@ -144,7 +145,11 @@ app.get("/", function (req, res) {
             res.render("reja", {items: data});  // render -> views papkasidagi (reja.ejs) chaqrdi:  items:data => object yasab path qlnadi
         }  
     });
-}); 
+});
+
+                                                
+                                    
+
 
 
 

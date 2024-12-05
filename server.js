@@ -27,6 +27,7 @@ mongodb.connect(connectionString, {
             });
         }
     });
+    
 
 // database bn muvaf ulangan+ kn server ishga tushadi => sababi db ga ulanmasa malumot ololmaydi
 // database server => seuol da joylashgan!

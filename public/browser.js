@@ -1,4 +1,4 @@
-console.log("FrontEnd JS ishga tushdi!");
+console.log("FrontEnd JavaScript is working now!");
 
 // Browser.js only belongs to the frontend! The frontend only starts in the console section. It didn't work in the backend part
 
@@ -69,6 +69,7 @@ document.addEventListener("click", function (e) {
             .then((response) => {
                 console.log(response.data);
                 e.target.parentElement.parentElement.remove();
+                
             })
             .catch((err) => {
                 console.log("Iltimos qaytadan harakat qiling!");
@@ -78,10 +79,9 @@ document.addEventListener("click", function (e) {
     }  
 
 
-    // edit oper: function orqalitarget ichidagi classList ga kirgn, ushani ichida edit-me contain bolsa alert oqali xabar beradi
     if (e.target.classList.contains("edit-me")) {  
         // alert("siz edit tugmasini bosdingiz!");
-        let userInput = prompt(  // varibal name promp ta tenglanadi: prompt -> malumotni ozgartrb qoshish vazifasini bajaradi
+        let userInput = prompt(  // var name prompt ta tenglanadi: prompt -> malumotni ozgartrb qoshish vazifasini bajaradi
             "O'zgartirish kiriting",
             e.target.parentElement.parentElement.querySelector(".item-text").innerHTML
         );                       

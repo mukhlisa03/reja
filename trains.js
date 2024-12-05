@@ -1,23 +1,53 @@
 console.log("train task ishga tushdi!");   // nodemon orqali ishga tushryapti (package json da berilishi shart!)
 
+/*TASK F
+
+Yagona string argumentga ega findDoublers nomli function tuzing
+Agar stringda bittadan ortiq bir xil harflar ishtirok etgan bo'lsa
+true yokida false natija qaytarsin.
+
+MASALAN: findDoublers("hello"); natija true qaytadi. Sababi 
+ikki marotaba takrorlangan 'll' harfi mavjud!
+*/
+
+function findDoublers(string) {
+  const seen = [];
+
+
+  for (let i = 0; i < string.length; i++) {
+    if (seen.includes(string[i])) {   // harf oldin korlgan bolsa => true
+      return true;
+    }
+    seen.push(string[i]);  // bosh arrayga qoshb boramz
+  }
+  
+  
+  return false; //takr har yoq bolgan holatda => false
+}
+
+
+console.log(findDoublers("hello"));     // => true
+console.log(findDoublers("mukhlisa"));  // => false
+
+
+
+
+
+
+
+
+
 // E-TASK:  
 
 // Shunday function tuzing, u bitta string argumentni qabul qilib osha stringni teskari qilib return qilsin.
 // MASALAN: getReverse("hello") return qilsin "olleh"
 
-function getReverse(string) {
-  return string.split('').reverse().join('');
-}
+// function getReverse(string) {
+//   return string.split('').reverse().join('');
+// }
 
-console.log(getReverse("hello"));
-console.log(getReverse("mukhlisa"));
-
-
-
-
-
-
-
+// console.log(getReverse("hello"));
+// console.log(getReverse("mukhlisa"));
 
 
 /* D-TASK:
