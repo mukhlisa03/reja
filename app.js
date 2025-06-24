@@ -6,7 +6,7 @@ const app = express();
 // through the app -> we can build a web server
 
 
-// Call => MongoDB
+// Call => MongoDB 
 const client = require("./server") // client is required
 const db = client.db();  // client's db object -> performs CRUD operation
 const mongodb = require("mongodb");  
@@ -111,7 +111,7 @@ app.post("/edit-item", (req, res) => {
 app.post("/delete-all", (req, res) => {
     if (req.body.delete_all) {
         db.collection("plans").deleteMany(function() {
-            res.json({ state: "All plans has been deleted!"});
+            res.json({ state: "All plans has been deleted?!"});
         });
     }
 })  
